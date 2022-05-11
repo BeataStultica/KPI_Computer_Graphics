@@ -85,7 +85,6 @@ public class Scene {
 			}
 			System.out.print("\n");
 		}
-		System.out.print(tVal);
 
 	}
 
