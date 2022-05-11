@@ -89,13 +89,10 @@ public class Scene {
 	}
 
 	// render where near objects overlap distant objects
-	/*
-		public void render() {
+
+	public void render_mult() {
 		Point origin = camera.getLocation();
-		ArrayList<ArrayList<Character>> output = new ArrayList<>();
-		for(int i=0; i <20; i++){
-			output.add(new ArrayList());
-		}
+
 
 		for (int x = 0; x < screen.getWidth(); x++) {
 			for (int y = 0; y < screen.getHeight(); y++) {
@@ -116,11 +113,9 @@ public class Scene {
 					Point intersectionPoint = ray.getPointAt(tVal);
 					Normal normalAtPoint = obj.getNormalAtPoint(intersectionPoint);
 					System.out.print(calcLighting(normalAtPoint));
-					output.get(x).add(calcLighting(normalAtPoint));
-					//break;
+
 				} else {
 					System.out.print("-");
-					output.get(x).add('-');
 
 				}
 
@@ -128,7 +123,5 @@ public class Scene {
 			}
 			System.out.print("\n");
 		}
-		System.out.print(output);
 	}
-	 */
 }
