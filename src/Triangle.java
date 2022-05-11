@@ -40,8 +40,8 @@ public class Triangle implements Object {
         if (v<0.0 || u+v>det){
             return null;
         }
-        double t = edge1.dot(edge2);
 
+        double t = edge2.dot(qvec);
         double inv_det = 1.0/det;
         t *= inv_det;
         //u *= inv_det;
@@ -57,8 +57,8 @@ public class Triangle implements Object {
 
     @Override
     public Normal getNormalAtPoint(Point p) {
-        Vector edge1 = v2.sub(v1);
-        Vector edge2 = v3.sub(v1);
+        Vector edge1 = v2.sub(p);
+        Vector edge2 = v3.sub(p);
         return edge1.cross(edge2).toNormal();
     }
 }
