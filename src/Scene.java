@@ -1,5 +1,7 @@
 package src;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class Scene {
@@ -7,21 +9,28 @@ public class Scene {
 	private final Camera camera;
 	private final Screen screen;
 	private final DirectedLight light;
+	private final Output output;
 
-	public Scene(Camera camera, Screen screen, DirectedLight light) {
+	public Scene(Camera camera, Screen screen, DirectedLight light, Output output) {
 		this.camera = camera;
 		this.screen = screen;
 		this.light = light;
+		this.output = output;
 	}
 
 	public void addObject(Object obj) {
 		objects.add(obj);
 	}
 
-	private char calcLighting(Normal normalAtPoint) {
+	private double calcLighting(Normal normalAtPoint) {
 		double dotProduct = light.getDirection().dot(normalAtPoint);
-
-		if (dotProduct < 0) {
+		//return dotProduct;
+		if (dotProduct < 0){
+			return 0;
+		}else{
+			return dotProduct;
+		}
+		/*if (dotProduct < 0) {
 			return ' ';
 		} else if (dotProduct < 0.2) {
 			return '.';
@@ -31,19 +40,27 @@ public class Scene {
 			return '0';
 		} else {
 			return '#';
-		}
+		}*/
 	}
 
 	// render 1 object which contains the point closest to camera
-	public void render() {
+	/*public void render(){
 		Point origin = camera.getLocation();
-		ArrayList<ArrayList<ArrayList<Character>>> res = new ArrayList<>();
+		ArrayList<Output> res = new ArrayList<>();
 		for (Object object : objects) {
-			ArrayList<ArrayList<Character>> output = new ArrayList<>();
-			for (int i = 0; i < screen.getWidth(); i++) {
-				output.add(new ArrayList());
+			Class op = this.output.getClass();//ConsoleOutput(screen.getWidth(), screen.getHeight());
+			try {
+				Constructor cons = op.getConstructor();
+				int[] args = {screen.getWidth(), screen.getHeight()};
+				java.lang.Object output = cons.newInstance(args);
+				res.add((Output) output);
+			}catch (InstantiationException | NoSuchMethodException ie) {
+
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
 			}
-			res.add(output);
 		}
 		Double tVal = Double.MAX_VALUE;
 		int obj = -1;
@@ -65,28 +82,18 @@ public class Scene {
 					if (ttval !=null) {
 						Point intersectionPoint = ray.getPointAt(ttval);
 						Normal normalAtPoint = objects.get(o).getNormalAtPoint(intersectionPoint);
-						res.get(o).get(x).add(calcLighting(normalAtPoint));
+						res.get(o).add_element(x, calcLighting(normalAtPoint));//.get(x).add(calcLighting(normalAtPoint));
 					} else {
-						res.get(o).get(x).add('-');
+						res.get(o).add_element(x,0);//get(x).add('-');
 
 					}
 				}
 			}
 		}
 
-		for (int x = 0; x < screen.getWidth(); x++) {
-			for (int y = 0; y < screen.getHeight(); y++) {
-				if (obj>-1) {
-					System.out.print(res.get(obj).get(x).get(y));
-				}else{
-					System.out.print("-");
-					}
-				System.out.print(" ");
-			}
-			System.out.print("\n");
-		}
+		res.get(obj).display_render_res();
 
-	}
+	}*/
 
 	// render where near objects overlap distant objects
 
@@ -112,16 +119,17 @@ public class Scene {
 				if (obj != null) {
 					Point intersectionPoint = ray.getPointAt(tVal);
 					Normal normalAtPoint = obj.getNormalAtPoint(intersectionPoint);
-					System.out.print(calcLighting(normalAtPoint));
+					//System.out.print(calcLighting(normalAtPoint));
+					this.output.add_element(x, calcLighting(normalAtPoint));
 
 				} else {
-					System.out.print("-");
+					this.output.add_element(x, -1.0);
 
 				}
 
-				System.out.print(" ");
 			}
-			System.out.print("\n");
+
 		}
+		this.output.display_render_res();
 	}
 }

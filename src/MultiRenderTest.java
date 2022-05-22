@@ -24,7 +24,8 @@ public class MultiRenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(sphere);
         scene.addObject(triangle);
         scene.render_mult();
@@ -57,7 +58,8 @@ public class MultiRenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(sphere);
         scene.addObject(sphere2);
         scene.render_mult();
@@ -90,30 +92,31 @@ public class MultiRenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(sphere);
         scene.addObject(plane);
         scene.render_mult();
-        Assert.assertEquals(". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . * * 0 # . . . . . . . . . . \n" +
-                ". . . . .   . * * 0 # . . . . . . . . . \n" +
-                ". . . . .     . * * 0 . . . . . . . . . \n" +
-                ". . . . .       . * * . . . . . . . . . \n" +
-                ". . . . .         . * . . . . . . . . . \n" +
-                ". . . . . .         . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n" +
-                ". . . . . . . . . . . . . . . . . . . . \n", output.toString());
+        Assert.assertEquals("                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "            * * 0 #                     \n" +
+                "            . * * 0 #                   \n" +
+                "              . * * 0                   \n" +
+                "                . * *                   \n" +
+                "                  . *                   \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n", output.toString());
     }
 
     @Test
@@ -123,25 +126,26 @@ public class MultiRenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(plane2);
         scene.addObject(plane);
         scene.render_mult();
-        Assert.assertEquals("          . . . . . . . . . . . . . . . \n" +
-                "            . . . . . . . . . . . . . . \n" +
-                "              . . . . . . . . . . . . . \n" +
-                "                . . . . . . . . . . . . \n" +
-                "                  . . . . . . . . . . . \n" +
-                "                    . . . . . . . . . . \n" +
-                "                      . . . . . . . . . \n" +
-                "                        . . . . . . . . \n" +
-                "                          . . . . . . . \n" +
-                "                            . . . . . . \n" +
-                "                              . . . . . \n" +
-                "                                . . . . \n" +
-                "                                  . . . \n" +
-                "                                    . . \n" +
-                "                                      . \n" +
+        Assert.assertEquals("                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
+                "                                        \n" +
                 "                                        \n" +
                 "                                        \n" +
                 "                                        \n" +
@@ -155,20 +159,21 @@ public class MultiRenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(triangle);
         scene.addObject(triangle2);
         scene.render_mult();
         Assert.assertEquals("- - - - - - - - - - - - - - - - - - - - \n" +
                 "- - - - - - - - - - - - - - - - - - - - \n" +
-                "- - - - - - - - - - . - - - - - - - - - \n" +
-                "- - - - - - - - - - . . - - - - - - - - \n" +
-                "- - - - -   - - - - . . . - - - - - - - \n" +
-                "- - - - -     - - - . . . . - - - - - - \n" +
-                "- - - - -       - -   . . . . - - - - - \n" +
-                "- - - - -         - . .   . . . - - - - \n" +
-                "- - - - -             . . . . . . . - - \n" +
-                "- - - - -               .   . . . .   - \n" +
+                "- - - - - - - - - -   - - - - - - - - - \n" +
+                "- - - - - - - - - -   . - - - - - - - - \n" +
+                "- - - - -   - - - -   . . - - - - - - - \n" +
+                "- - - - -     - - -     . . - - - - - - \n" +
+                "- - - - -       - -   . .   . - - - - - \n" +
+                "- - - - -         - .     . . . - - - - \n" +
+                "- - - - -                 .   . .   - - \n" +
+                "- - - - -               .             - \n" +
                 "- - - - -                 - - - - - - - \n" +
                 "- - - - -                     - - - - - \n" +
                 "- - - - -                       - - - - \n" +
