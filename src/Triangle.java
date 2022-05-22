@@ -1,15 +1,23 @@
 package src;
 
+import org.junit.Test;
+
 public class Triangle implements Object {
     private final Point v1;
     private final Point v2;
     private final Point v3;
+    private final Vector n1;
+    private final Vector n2;
+    private final Vector n3;
     private final double eps = 0.00001;
 
-    public Triangle(Point v1, Point v2, Point v3) {
+    public Triangle(Point v1, Point v2, Point v3, Vector n1, Vector n2, Vector n3) {
         this.v1 = v1;
         this.v2 = v2;
         this.v3 = v3;
+        this.n1 = n1;
+        this.n2 = n2;
+        this.n3 = n3;
     }
 
     public Double intersectionWith(Ray ray) {

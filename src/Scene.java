@@ -102,6 +102,7 @@ public class Scene {
 
 
 		for (int x = 0; x < screen.getWidth(); x++) {
+			System.out.println(x);
 			for (int y = 0; y < screen.getHeight(); y++) {
 				Point dest = screen.getPoint(x, y);
 				Vector direction = dest.sub(origin);
@@ -109,8 +110,8 @@ public class Scene {
 
 				Double tVal = Double.MAX_VALUE;
 				Object obj = null;
-				for (Object object : objects) { // Make this work for multiple objects
-					Double ttval = object.intersectionWith(ray); // The smallest t is closest to camera
+				for (Object object : objects) {
+					Double ttval = object.intersectionWith(ray);
 					if (ttval !=null && ttval < tVal){
 						tVal = ttval;
 						obj = object;
@@ -119,7 +120,6 @@ public class Scene {
 				if (obj != null) {
 					Point intersectionPoint = ray.getPointAt(tVal);
 					Normal normalAtPoint = obj.getNormalAtPoint(intersectionPoint);
-					//System.out.print(calcLighting(normalAtPoint));
 					this.output.add_element(x, calcLighting(normalAtPoint));
 
 				} else {
