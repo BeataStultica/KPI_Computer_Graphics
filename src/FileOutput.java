@@ -24,10 +24,13 @@ public class FileOutput implements Output{
     public void add_element(int x, double elem){
         if (x < this.width) {
             if (elem <0){
-                elem = 0;
+                //elem = 0;
+                this.matrix.get(x).add(Arrays.asList( (int) Math.round(128),
+                        (int) Math.round(0), (int) Math.round(255)));
+            }else {
+                this.matrix.get(x).add(Arrays.asList((int) Math.round(255 * elem),
+                        (int) Math.round(255 * elem), (int) Math.round(255 * elem)));
             }
-            this.matrix.get(x).add(Arrays.asList( (int) Math.round(255*elem),
-                    (int) Math.round(255*elem), (int) Math.round(255*elem)));
         }
         else{
             System.out.println("Row index out of the image size");

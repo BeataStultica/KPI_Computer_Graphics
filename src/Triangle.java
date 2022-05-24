@@ -1,11 +1,10 @@
 package src;
 
-import org.junit.Test;
 
 public class Triangle implements Object {
-    private final Point v1;
-    private final Point v2;
-    private final Point v3;
+    private Point v1;
+    private Point v2;
+    private Point v3;
     private final Vector n1;
     private final Vector n2;
     private final Vector n3;
@@ -19,7 +18,11 @@ public class Triangle implements Object {
         this.n2 = n2;
         this.n3 = n3;
     }
-
+    public void transform(Matrix4x4 m){
+        this.v1 = m.multiply_point(v1);
+        this.v2 = m.multiply_point(v2);
+        this.v3 = m.multiply_point(v3);
+    }
     public Double intersectionWith(Ray ray) {
         Point o = ray.getOrigin();
         Vector d = ray.getDirection();

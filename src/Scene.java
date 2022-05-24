@@ -24,6 +24,7 @@ public class Scene {
 
 	private double calcLighting(Normal normalAtPoint) {
 		double dotProduct = light.getDirection().dot(normalAtPoint);
+		//return 1;
 		//return dotProduct;
 		if (dotProduct < 0){
 			return 0;
