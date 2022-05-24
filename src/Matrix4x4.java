@@ -48,8 +48,8 @@ public class Matrix4x4 {
             }
             result[row] = cell;
         }
-        System.out.println(Arrays.toString(result));
-        return new Vector(result[0], result[1], result[2]);
+        //System.out.println(Arrays.toString(result));
+        return new Vector(result[0], result[1], result[2]).normalize();
     }
     public Point multiply_point(Point v){
         double[] result = new double[this.matrix.length];

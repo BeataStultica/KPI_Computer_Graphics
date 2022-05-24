@@ -38,9 +38,10 @@ class Main {
 		ArrayList<Triangle> poligons = reader.readfile();
 		System.out.println(poligons.size());
 		Matrix4x4 m1 = new Matrix4x4();
-		m1.move(100, -150,0);
-		m1.rotate_x(55);
-		m1.rotate_z(45);
+		//m1.move(100, -150,0);
+	//	m1.rotate_x(55);
+		//m1.rotate_z(45);
+		//m1.rotate_y(45);
 		m1.scale(600,600,600);
 		for (Triangle tr: poligons){
 			tr.transform(m1);
