@@ -60,11 +60,7 @@ public class ObjReader {
             }
 
         }
-        //System.out.println(index_list.size());
-        //System.out.println(vertex_list.size());
-        //System.out.println(normal_list.size());
         for (ArrayList<ArrayList<Integer>> f: index_list){
-            //System.out.println(f);
             ArrayList<Point> p = new ArrayList<>();
             ArrayList<Normal> n = new ArrayList<>();
             for (ArrayList<Integer> t: f){

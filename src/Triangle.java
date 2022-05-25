@@ -46,7 +46,6 @@ public class Triangle implements Object {
         Vector tvec = o.sub(v1);
 
         double u = tvec.dot(pvec);
-        //this.u = u;
 
         if (u<0.0 || u>det){
             return null;
@@ -54,7 +53,6 @@ public class Triangle implements Object {
 
         Vector qvec = tvec.cross(edge1);
         double v = d.dot(qvec);
-        //this.v = v;
         if (v<0.0 || u+v>det){
             return null;
         }
@@ -78,9 +76,6 @@ public class Triangle implements Object {
     @Override
     public Normal getNormalAtPoint(Point p) {
         return this.n2.mult(u).add(this.n3.mult(v).add(this.n1.mult(1-v-u))).toNormal();  // barycentric normal
-        /*Vector edge1 = v2.sub(p);
-        Vector edge2 = v3.sub(p);
-        return edge1.cross(edge2).toNormal();*/
     }
 }
 

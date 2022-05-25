@@ -88,7 +88,7 @@ public class Matrix4x4 {
 		}
 	}
 
-	public void rotateX(double xAngle) {
+	public void rotateZ(double xAngle) {
 		double rad = Math.toRadians(xAngle);
 		double[][] new_move = new double[][]{
 			new double[]{Math.cos(rad), -Math.sin(rad), 0, 0},
@@ -118,7 +118,7 @@ public class Matrix4x4 {
 		}
 	}
 
-	public void rotateZ(double zAngle) {
+	public void rotateX(double zAngle) {
 		double rad = Math.toRadians(zAngle);
 		double[][] new_move = new double[][]{
 			new double[]{1, 0, 0, 0},

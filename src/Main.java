@@ -18,7 +18,7 @@ class Main {
 		}
 
 		Screen screen = new Screen(300, 300, new Point(450, 0, 0));
-		Camera camera = new Camera(new Point(550, 0, 0));
+		Camera camera = new Camera(new Point(950, 0, 0));
 		DirectedLight light = new DirectedLight(Normal.create(0, -1, 1));
 		Output out = new FileOutput(output_file);
 		Scene scene = new Scene(camera, screen, light);
@@ -27,9 +27,9 @@ class Main {
 		ArrayList<Triangle> poligons = reader.readfile();
 		System.out.println(poligons.size());
 		Matrix4x4 m1 = new Matrix4x4();
-		m1.move(100, -150, 0);
-		m1.rotateX(55);
-		m1.scale(600, 600, 600);
+		m1.move(0, 0, -100);
+		m1.rotateZ(55);
+		m1.scale(400, 400, 400);
 		for (Triangle tr : poligons) {
 			tr.transform(m1);
 			scene.addObject(tr);
