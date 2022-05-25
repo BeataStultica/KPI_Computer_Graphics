@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TriangleTest {
     private final Triangle triangle= new Triangle(new Point(0, 0, 0), new Point(0, 15, 0), new Point(0, 0, 15),
-            new Vector(0,0,0),new Vector(0,0,0),new Vector(0,0,0));
+            Normal.create(0,0,0),Normal.create(0,0,0),Normal.create(0,0,0));
     @Test
     void intersectsWith() {
         Ray ray1 = new Ray(new Vector(-1, 0, 0), new Point(5, 0, 0));
