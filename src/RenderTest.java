@@ -61,7 +61,7 @@ public class RenderTest {
         scene.addObject(sphere);
         scene.addObject(triangle);
         scene.render();
-        Assert.assertNotEquals("- - - - - - - - - -   - - - - - - - - - \n" +
+        Assert.assertNotSame("- - - - - - - - - -   - - - - - - - - - \n" +
                 "- - - - - - - - - -     - - - - - - - - \n" +
                 "- - - - - - - - - -       - - - - - - - \n" +
                 "- - - - - - - - - -         - - - - - - \n" +
