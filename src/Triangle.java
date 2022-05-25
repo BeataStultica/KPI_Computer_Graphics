@@ -5,14 +5,13 @@ public class Triangle implements Object {
     private Point v1;
     private Point v2;
     private Point v3;
-    private Vector n1;
-    private Vector n2;
-    private Vector n3;
+    private Normal n1;
+    private Normal n2;
+    private Normal n3;
     private double u;
     private double v;
-    private final double eps = 0.00001;
 
-    public Triangle(Point v1, Point v2, Point v3, Vector n1, Vector n2, Vector n3) {
+    public Triangle(Point v1, Point v2, Point v3, Normal n1, Normal n2, Normal n3) {
         this.v1 = v1;
         this.v2 = v2;
         this.v3 = v3;
@@ -21,12 +20,12 @@ public class Triangle implements Object {
         this.n3 = n3;
     }
     public void transform(Matrix4x4 m){
-        this.v1 = m.multiply_point(v1);
-        this.v2 = m.multiply_point(v2);
-        this.v3 = m.multiply_point(v3);
-        this.n1 = m.multiply_vector(n1);
-        this.n2 = m.multiply_vector(n2);
-        this.n3 = m.multiply_vector(n3);
+        this.v1 = m.multiplyPoint(v1);
+        this.v2 = m.multiplyPoint(v2);
+        this.v3 = m.multiplyPoint(v3);
+        this.n1 = m.multiplyNormal(n1);
+        this.n2 = m.multiplyNormal(n2);
+        this.n3 = m.multiplyNormal(n3);
     }
     public Double intersectionWith(Ray ray) {
         Point o = ray.getOrigin();
@@ -39,6 +38,7 @@ public class Triangle implements Object {
 
         double det = edge1.dot(pvec);
 
+        double eps = 0.00001;
         if (det< eps){
             return null;
         }
