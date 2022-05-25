@@ -66,12 +66,12 @@ public class ObjReader {
         for (ArrayList<ArrayList<Integer>> f: index_list){
             //System.out.println(f);
             ArrayList<Point> p = new ArrayList<>();
-            ArrayList<Vector> n = new ArrayList<>();
+            ArrayList<Normal> n = new ArrayList<>();
             for (ArrayList<Integer> t: f){
                 ArrayList<Double> vertex_p1 = vertex_list.get(t.get(0)-1);
                 ArrayList<Double> normal_p2 = normal_list.get(t.get(2)-1);
                 p.add(new Point(vertex_p1.get(0), vertex_p1.get(1),vertex_p1.get(2)));
-                n.add(new Vector(normal_p2.get(0), normal_p2.get(1),normal_p2.get(2)));
+                n.add(Normal.create(normal_p2.get(0), normal_p2.get(1),normal_p2.get(2)));
             }
             this.poligons.add(new Triangle(p.get(0), p.get(1),p.get(2), n.get(0), n.get(1), n.get(2)));
         }
