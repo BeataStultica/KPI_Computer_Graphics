@@ -1,6 +1,5 @@
 package src;
 
-
 public class Triangle implements Object {
     private Point v1;
     private Point v2;
@@ -8,8 +7,6 @@ public class Triangle implements Object {
     private Normal n1;
     private Normal n2;
     private Normal n3;
-    private double u;
-    private double v;
 
     public Triangle(Point v1, Point v2, Point v3, Normal n1, Normal n2, Normal n3) {
         this.v1 = v1;
@@ -60,11 +57,6 @@ public class Triangle implements Object {
         double t = edge2.dot(qvec);
         double inv_det = 1.0/det;
         t *= inv_det;
-        u *= inv_det;
-        v *= inv_det;
-        this.u = u;
-        this.v = v;
-
 
         if (t >= 0) {
             return t;
@@ -75,7 +67,18 @@ public class Triangle implements Object {
 
     @Override
     public Normal getNormalAtPoint(Point p) {
+        double ownArea = triangleArea(v1, v2, v3);
+        double vArea = triangleArea(v2, v1, p);
+        double uArea = triangleArea(v1, v3, p);
+        double u = uArea / ownArea;
+        double v = vArea / ownArea;
+
         return this.n2.mult(u).add(this.n3.mult(v).add(this.n1.mult(1-v-u))).toNormal();  // barycentric normal
+    }
+
+    private double triangleArea(Point v1, Point v2, Point v3) {
+        Vector u = v2.sub(v1).cross(v3.sub(v1));
+        return u.len() / 2;
     }
 }
 
