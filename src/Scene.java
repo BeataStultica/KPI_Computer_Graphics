@@ -51,7 +51,7 @@ public class Scene {
 			for (int y = 0; y < screen.getHeight(); y++) {
 				Point dest = screen.getPoint(x, y);
 				Vector direction = dest.sub(origin);
-				Ray ray = new Ray(direction, origin);
+				Ray ray = new Ray(direction.toNormal(), origin);
 
 				double tVal = Double.MAX_VALUE;
 				Object obj = null;
@@ -69,7 +69,7 @@ public class Scene {
 					Point intersectionPoint = ray.getPointAt(tVal);
 					Normal normalAtPoint = obj.getNormalAtPoint(intersectionPoint);
 
-					if (withShadows && lightObstructed(new Ray(light.getDirection(), intersectionPoint), obj)) {
+					if (withShadows && lightObstructed(new Ray(light.getDirection(), intersectionPoint.add(normalAtPoint.mult(2))), obj)) {
 						matrix[x][y] = Color.BLACK.getRGB();
 					} else {
 						double lighting = calcLighting(normalAtPoint);
