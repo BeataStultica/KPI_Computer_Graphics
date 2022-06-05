@@ -55,4 +55,8 @@ public class Vector {
 	public Normal toNormal() {
 		return Normal.create(x, y, z);
 	}
+
+	public double len() { return Math.sqrt(x * x + y * y + z * z); }
+
+	public Vector reverse() { return new Vector(-x, -y, -z); }
 }
