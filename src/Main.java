@@ -17,7 +17,7 @@ class Main {
 			}
 		}
 
-		Screen screen = new Screen(300, 300, new Point(450, 0, 0));
+		Screen screen = new Screen(300, 300, 1, new Point(450, 0, 0));
 		Camera camera = new Camera(new Point(950, 0, 0));
 		DirectedLight light = new DirectedLight(Normal.create(0, -1, 1));
 		Output out = new FileOutput(output_file);
