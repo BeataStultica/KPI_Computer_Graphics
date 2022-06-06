@@ -80,5 +80,28 @@ public class Triangle implements Object {
         Vector u = v2.sub(v1).cross(v3.sub(v1));
         return u.len() / 2;
     }
-}
 
+    public Point getCenter() {
+        double avgX = (v1.x() + v2.x() + v3.x()) / 3;
+        double avgY = (v1.y() + v2.y() + v3.y()) / 3;
+        double avgZ = (v1.z() + v2.z() + v3.z()) / 3;
+
+        return new Point(avgX, avgY, avgZ);
+    }
+
+    public Vector minBounds() {
+        double minX = Math.min(v1.x(), Math.min(v2.x(), v3.x()));
+        double minY = Math.min(v1.y(), Math.min(v2.y(), v3.y()));
+        double minZ = Math.min(v1.z(), Math.min(v2.z(), v3.z()));
+
+        return new Vector(minX, minY, minZ);
+    }
+
+    public Vector maxBounds() {
+        double maxX = Math.max(v1.x(), Math.max(v2.x(), v3.x()));
+        double maxY = Math.max(v1.y(), Math.max(v2.y(), v3.y()));
+        double maxZ = Math.max(v1.z(), Math.max(v2.z(), v3.z()));
+
+        return new Vector(maxX, maxY, maxZ);
+    }
+}
