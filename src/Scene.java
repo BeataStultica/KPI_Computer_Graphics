@@ -1,23 +1,20 @@
 package src;
 
-import java.util.ArrayList;
 import java.awt.Color;
+import java.util.List;
 
 public class Scene {
 	public static final int BACKGROUND_COLOR = Color.magenta.getRGB();
-	private final ArrayList<Object> objects = new ArrayList<>();
 	private final Camera camera;
 	private final Screen screen;
 	private final DirectedLight light;
+	private final BoundingTree tree;
 
-	public Scene(Camera camera, Screen screen, DirectedLight light) {
+	public Scene(Camera camera, Screen screen, DirectedLight light, BoundingTree tree) {
 		this.camera = camera;
 		this.screen = screen;
 		this.light = light;
-	}
-
-	public void addObject(Object obj) {
-		objects.add(obj);
+		this.tree = tree;
 	}
 
 	private double calcLighting(Normal normalAtPoint) {
@@ -31,7 +28,7 @@ public class Scene {
 	}
 
 	private boolean lightObstructed(Ray ray, Object self) {
-		for (Object object : objects) {
+		for (Object object : tree.getTriangles(ray)) {
 			if (object == self) continue;
 			Double intersection = object.intersectionWith(ray);
 
@@ -56,7 +53,10 @@ public class Scene {
 				double tVal = Double.MAX_VALUE;
 				Object obj = null;
 
-				for (Object object : objects) {
+				List<Triangle> triangles = tree.getTriangles(ray);
+				System.out.println(x * screen.getWidth() + y + " out of " + screen.getWidth() * screen.getHeight());
+				System.out.println("triangles size: " + triangles.size());
+				for (Object object : triangles) {
 					Double ttval = object.intersectionWith(ray);
 
 					if (ttval != null && ttval < tVal) {
