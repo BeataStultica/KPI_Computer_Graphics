@@ -9,6 +9,19 @@ public class Box3 {
 		this.max = maxBounds;
 	}
 
+	public Vector getMin() { return min; }
+
+	public Vector getMax() { return max; }
+
+	public double area() {
+		Vector sides = max.sub(min);
+		double xy = sides.x() * sides.y();
+		double xz = sides.x() * sides.z();
+		double yz = sides.y() * sides.z();
+
+		return (xy + xz + yz) * 2;
+	}
+
 	public boolean intersectionWith(Ray ray) {
 		Point origin = ray.getOrigin();
 		Vector direction = ray.getDirection();
