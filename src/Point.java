@@ -30,4 +30,6 @@ public class Point {
 	public Vector sub(Point p) {
 		return new Vector(x - p.x, y - p.y, z - p.z);
 	}
+
+	public Vector toVector() { return new Vector(x, y, z); }
 }
