@@ -24,6 +24,8 @@ class Main {
 		//PointLight light = new PointLight(new Point(150,100,-200), new Vector(255,0,0), new float[]{0.5f,1f,1f});
 		//AmbientLight light = new AmbientLight(new Vector(255,0,0), new float[]{0.5f,1f,1f});
 		Output out = new FileOutput(output_file);
+		Output out2 = new FileOutput("without_tree.ppm");
+		Output out3 = new FileOutput("mask.ppm");
 
 
 		ObjReader reader = new ObjReader(input_file);
@@ -40,9 +42,38 @@ class Main {
 			tr.setColor(new Vector(0.5, 1,1)); // color from 0 to 1
 			//scene.addObject(tr);
 		}
+
+		double startTime = System.currentTimeMillis();
 		BiTree tree = BiTree.create(poligons, 10, DivisionType.MIDDLE);
 		Scene scene = new Scene(camera, screen, light, tree);
 
-		scene.render(out, true);
+		NoTree noTree = new NoTree(poligons);
+		Scene scene2 = new Scene(camera, screen, light, noTree);
+
+		int[][] withtree = scene.render(out, true);
+		System.out.println("Time with tree = " +(System.currentTimeMillis()-startTime));
+
+		double startTime2 = System.currentTimeMillis();
+		int[][] withoutTree = scene2.render(out2, true);
+		System.out.println("Time without tree = " +(System.currentTimeMillis()-startTime2));
+
+		get_mask(out3, withtree,withoutTree);
+
+
+	}
+	private static void get_mask(Output output, int[][] withtree, int[][] withoutTree){
+		int[][] mask = new int[withtree.length][withtree[0].length];
+		for (int i=0; i<withtree.length; i++){
+			for (int j=0; j<withtree[0].length; j++){
+				int dif = withoutTree[i][j] - withtree[i][j];
+				if (dif != 0){
+					mask[i][j] = 1;
+				}
+				else {
+					mask[i][j] =0;
+				}
+			}
+		}
+		output.display(mask);
 	}
 }

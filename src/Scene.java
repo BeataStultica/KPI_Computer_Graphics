@@ -32,7 +32,7 @@ public class Scene {
 		return false;
 	}
 
-	public void render(Output output, boolean withShadows) {
+	public int[][] render(Output output, boolean withShadows) {
 		Point origin = camera.getLocation();
 		int[][] matrix = new int[screen.getWidth()][screen.getHeight()];
 
@@ -46,8 +46,8 @@ public class Scene {
 				Object obj = null;
 
 				List<Triangle> triangles = tree.getTriangles(ray);
-				System.out.println(x * screen.getWidth() + y + " out of " + screen.getWidth() * screen.getHeight());
-				System.out.println("triangles size: " + triangles.size());
+				//System.out.println(x * screen.getWidth() + y + " out of " + screen.getWidth() * screen.getHeight());
+				//System.out.println("triangles size: " + triangles.size());
 				for (Object object : triangles) {
 					Double ttval = object.intersectionWith(ray);
 
@@ -76,5 +76,6 @@ public class Scene {
 		}
 
 		output.display(matrix);
+		return matrix;
 	}
 }
