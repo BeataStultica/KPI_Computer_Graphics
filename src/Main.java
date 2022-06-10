@@ -33,11 +33,11 @@ class Main {
 		Matrix4x4 m1 = new Matrix4x4();
 		m1.move(0, 0, -100);
 		m1.rotateZ(55);
-		m1.scale(20, 20, 20);
+		m1.scale(400, 400, 400);
 
 		for (Triangle tr : poligons) {
 			tr.transform(m1);
-			//tr.setColor(new Vector(0.5, 1,1)); // color from 0 to 1
+			tr.setColor(new Vector(0.5, 1,1)); // color from 0 to 1
 			//scene.addObject(tr);
 		}
 		BiTree tree = BiTree.create(poligons, 10, DivisionType.MIDDLE);
