@@ -7,10 +7,10 @@ public class Scene {
 	public static final int BACKGROUND_COLOR = Color.magenta.getRGB();
 	private final Camera camera;
 	private final Screen screen;
-	private final DirectedLight light;
+	private final Light light;
 	private final BoundingTree tree;
 
-	public Scene(Camera camera, Screen screen, DirectedLight light, BoundingTree tree) {
+	public Scene(Camera camera, Screen screen, Light light, BoundingTree tree) {
 		this.camera = camera;
 		this.screen = screen;
 		this.light = light;
@@ -61,7 +61,7 @@ public class Scene {
 					Point intersectionPoint = ray.getPointAt(tVal);
 					Normal normalAtPoint = obj.getNormalAtPoint(intersectionPoint);
 
-					if (withShadows && lightObstructed(new Ray(light.getDirection(), intersectionPoint.add(normalAtPoint.mult(2))), obj)) {
+					if (withShadows && lightObstructed(new Ray(light.getDirection(intersectionPoint), intersectionPoint.add(normalAtPoint.mult(2))), obj)) {
 						matrix[x][y] = Color.BLACK.getRGB();
 					} else {
 						double lighting = light.calcLighting(normalAtPoint, intersectionPoint);

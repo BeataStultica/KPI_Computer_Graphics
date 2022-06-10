@@ -10,7 +10,7 @@ public class DirectedLight implements Light{
 		this.intens = new Vector(intens[0], intens[1], intens[2]);
 	}
 
-	public Normal getDirection() {
+	public Normal getDirection(Point point) {
 		return direction;
 	}
 	public Vector getColor() { return color; }
@@ -18,7 +18,7 @@ public class DirectedLight implements Light{
 
 	@Override
 	public double calcLighting(Normal normalAtPoint, Point point) {
-		double dotProduct = this.getDirection().dot(normalAtPoint);
+		double dotProduct = this.getDirection(point).dot(normalAtPoint);
 
 		if (dotProduct < 0) {
 			return 0;
