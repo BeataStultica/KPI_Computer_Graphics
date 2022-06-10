@@ -20,9 +20,9 @@ class Main {
 
 		Screen screen = new Screen(300, 300, 1, new Point(450, 0, 0));
 		Camera camera = new Camera(new Point(950, 0, 0));
-		DirectedLight light = new DirectedLight(Normal.create(0, 1, 0), new Vector(255,0,0), new float[]{0.5f,1f,1f});
+		//DirectedLight light = new DirectedLight(Normal.create(0, 1, 0), new Vector(255,0,0), new float[]{0.5f,1f,1f});
 		//PointLight light = new PointLight(new Point(150,100,-200), new Vector(255,0,0), new float[]{0.5f,1f,1f});
-		//AmbientLight light = new AmbientLight(new Vector(255,0,0), new float[]{0.5f,1f,1f});
+		AmbientLight light = new AmbientLight(new Vector(255,0,0), new float[]{0.5f,1f,1f});
 		Output out = new FileOutput(output_file);
 
 

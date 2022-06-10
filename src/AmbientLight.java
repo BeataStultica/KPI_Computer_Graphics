@@ -12,7 +12,7 @@ public class AmbientLight implements Light{
     @Override
     public double calcLighting(Normal normalAtPoint, Point point, BoundingTree tree) {
         Random rd = new Random();
-        double dotProduct = 0;
+        double dotProduct = 1;
         for (int i=0; i<4; i++){
             Ray r = new Ray(Normal.create(normalAtPoint.x()*rd.nextInt(10), normalAtPoint.y()*rd.nextInt(10), normalAtPoint.z()*rd.nextInt(10)), point.add(normalAtPoint.mult(2)));
             boolean isLight = false;
@@ -24,12 +24,24 @@ public class AmbientLight implements Light{
                     break;
                 }
             }
-            dotProduct += r.getDirection().toNormal().dot(normalAtPoint);
+            if (!isLight){
+                double a = r.getDirection().toNormal().dot(normalAtPoint);
+                if (Double.isNaN(a)){
+                    a = 0;
+                }
+                dotProduct += a;
+
+            }
         }
-        //double dotProduct = this.getDirection(point).dot(normalAtPoint);
 
-
-        return dotProduct/4;
+        if (Double.isNaN(dotProduct/5)) {
+            System.out.println(dotProduct);
+            dotProduct=1;
+        }
+        if (dotProduct/5<0.3){
+            dotProduct=4;
+        }
+        return dotProduct/5;
 
     }
 
