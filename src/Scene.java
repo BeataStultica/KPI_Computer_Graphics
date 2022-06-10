@@ -17,15 +17,7 @@ public class Scene {
 		this.tree = tree;
 	}
 
-	private double calcLighting(Normal normalAtPoint) {
-		double dotProduct = light.getDirection().dot(normalAtPoint);
 
-		if (dotProduct < 0) {
-			return 0;
-		} else {
-			return dotProduct;
-		}
-	}
 
 	private boolean lightObstructed(Ray ray, Object self) {
 		for (Object object : tree.getTriangles(ray)) {
@@ -54,8 +46,8 @@ public class Scene {
 				Object obj = null;
 
 				List<Triangle> triangles = tree.getTriangles(ray);
-				System.out.println(x * screen.getWidth() + y + " out of " + screen.getWidth() * screen.getHeight());
-				System.out.println("triangles size: " + triangles.size());
+				//System.out.println(x * screen.getWidth() + y + " out of " + screen.getWidth() * screen.getHeight());
+				//System.out.println("triangles size: " + triangles.size());
 				for (Object object : triangles) {
 					Double ttval = object.intersectionWith(ray);
 
@@ -72,9 +64,10 @@ public class Scene {
 					if (withShadows && lightObstructed(new Ray(light.getDirection(), intersectionPoint.add(normalAtPoint.mult(2))), obj)) {
 						matrix[x][y] = Color.BLACK.getRGB();
 					} else {
-						double lighting = calcLighting(normalAtPoint);
-						int shade = (int) Math.round(lighting * 255);
-						matrix[x][y] = new Color(shade, shade, shade).getRGB();
+						double lighting = light.calcLighting(normalAtPoint, intersectionPoint);
+						Vector c = light.getColor().dot_el(light.getIntens()).mult(lighting);
+						//int shade = (int) Math.round(lighting * 255);
+						matrix[x][y] = new Color((int) c.x(), (int) c.y(), (int) c.z()).getRGB();
 					}
 				} else {
 					matrix[x][y] = BACKGROUND_COLOR;
