@@ -1,5 +1,7 @@
 package src;
 
+import java.util.ArrayList;
+
 public class Triangle implements Object {
     private Point v1;
     private Point v2;
@@ -8,14 +10,20 @@ public class Triangle implements Object {
     private Normal n2;
     private Normal n3;
     private Vector color;
+    private Vector t1;
+    private Vector t2;
+    private Vector t3;
 
-    public Triangle(Point v1, Point v2, Point v3, Normal n1, Normal n2, Normal n3) {
+    public Triangle(Point v1, Point v2, Point v3, Normal n1, Normal n2, Normal n3, ArrayList<Double> t1, ArrayList<Double> t2, ArrayList<Double> t3) {
         this.v1 = v1;
         this.v2 = v2;
         this.v3 = v3;
         this.n1 = n1;
         this.n2 = n2;
         this.n3 = n3;
+        this.t1 = new Vector(t1.get(0), t1.get(1), 0);
+        this.t2 = new Vector(t2.get(0), t2.get(1), 0);
+        this.t3 = new Vector(t3.get(0), t3.get(1), 0);
     }
     public void transform(Matrix4x4 m){
         this.v1 = m.multiplyPoint(v1);
@@ -112,5 +120,14 @@ public class Triangle implements Object {
 
     public void setColor(Vector c) {
         this.color = c;
+    }
+    public double[] get_uv_bari(Point p){
+        double ownArea = triangleArea(v1, v2, v3);
+        double vArea = triangleArea(v2, v1, p);
+        double uArea = triangleArea(v1, v3, p);
+        double u = uArea / ownArea;
+        double v = vArea / ownArea;
+        Vector res = t2.mult(u).add(t3.mult(v).add(t1.mult(1-v-u)));
+        return new double[]{res.x(), res.y()};
     }
 }

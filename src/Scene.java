@@ -46,8 +46,8 @@ public class Scene {
 				Object obj = null;
 
 				List<Triangle> triangles = tree.getTriangles(ray);
-				//System.out.println(x * screen.getWidth() + y + " out of " + screen.getWidth() * screen.getHeight());
-				//System.out.println("triangles size: " + triangles.size());
+				System.out.println(x * screen.getWidth() + y + " out of " + screen.getWidth() * screen.getHeight());
+				System.out.println("triangles size: " + triangles.size());
 				for (Object object : triangles) {
 					Double ttval = object.intersectionWith(ray);
 

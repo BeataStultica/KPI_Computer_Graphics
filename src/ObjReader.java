@@ -18,6 +18,7 @@ public class ObjReader {
         Scanner scan = new Scanner(fr);
         ArrayList<ArrayList<Double>> vertex_list = new ArrayList<>();
         ArrayList<ArrayList<Double>> normal_list = new ArrayList<>();
+        ArrayList<ArrayList<Double>> texture_list = new ArrayList<>();
         ArrayList<ArrayList<ArrayList<Integer>>> index_list = new ArrayList<>();
         while (scan.hasNextLine()) {
             final String line = scan.nextLine();
@@ -41,7 +42,15 @@ public class ObjReader {
                     temp.add(Double.parseDouble(wordsInLine.get(i)));
                 }
                 normal_list.add(temp);
-            } else if (token.equals("f")){
+
+            } else if (token.equals("vt")) {
+                ArrayList<Double> temp = new ArrayList<>();
+                for (int i = 0; i < 2; i++) {
+                    temp.add(Double.parseDouble(wordsInLine.get(i)));
+                }
+                texture_list.add(temp);
+            }
+            else if (token.equals("f")){
                 ArrayList<ArrayList<Integer>> temp = new ArrayList<>();
                 for (int i=0; i<3; i++){
                     ArrayList<Integer> temp2 = new ArrayList<>();
@@ -63,13 +72,21 @@ public class ObjReader {
         for (ArrayList<ArrayList<Integer>> f: index_list){
             ArrayList<Point> p = new ArrayList<>();
             ArrayList<Normal> n = new ArrayList<>();
+            ArrayList<ArrayList<Double>> texst= new ArrayList<>();
             for (ArrayList<Integer> t: f){
                 ArrayList<Double> vertex_p1 = vertex_list.get(t.get(0)-1);
+
+                if (t.get(1) != null) {
+                    ArrayList<Double> tex = texture_list.get(t.get(1)-1);
+                    texst.add(tex);
+                }
                 ArrayList<Double> normal_p2 = normal_list.get(t.get(2)-1);
                 p.add(new Point(vertex_p1.get(0), vertex_p1.get(1),vertex_p1.get(2)));
                 n.add(Normal.create(normal_p2.get(0), normal_p2.get(1),normal_p2.get(2)));
             }
-            this.poligons.add(new Triangle(p.get(0), p.get(1),p.get(2), n.get(0), n.get(1), n.get(2)));
+            //System.out.println(texst.get(0).get(1));
+            //System.out.print(' '+tex1);
+            this.poligons.add(new Triangle(p.get(0), p.get(1),p.get(2), n.get(0), n.get(1), n.get(2), texst.get(0), texst.get(1), texst.get(2)));
         }
         fr.close();
 

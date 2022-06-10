@@ -2,12 +2,14 @@ package src;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TriangleTest {
     private final Triangle triangle= new Triangle(new Point(0, 0, 0), new Point(0, 15, 0), new Point(0, 0, 15),
-            Normal.create(0,0,0),Normal.create(0,0,0),Normal.create(0,0,0));
+            Normal.create(0,0,0),Normal.create(0,0,0),Normal.create(0,0,0), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     @Test
     void intersectsWith() {
         Ray ray1 = new Ray(new Vector(-1, 0, 0).toNormal(), new Point(5, 0, 0));
