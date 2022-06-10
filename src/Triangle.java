@@ -13,6 +13,7 @@ public class Triangle implements Object {
     private Vector t1;
     private Vector t2;
     private Vector t3;
+    private Material material;
 
     public Triangle(Point v1, Point v2, Point v3, Normal n1, Normal n2, Normal n3, ArrayList<Double> t1, ArrayList<Double> t2, ArrayList<Double> t3) {
         this.v1 = v1;
@@ -121,6 +122,8 @@ public class Triangle implements Object {
     public void setColor(Vector c) {
         this.color = c;
     }
+    public Material getMaterial() { return this.material;}
+    public void setMaterial(Material material){ this.material = material;}
     public Double[] get_uv_bari(Point p){
         if (t1.x() <=1) {
             double ownArea = triangleArea(v1, v2, v3);

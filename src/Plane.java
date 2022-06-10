@@ -4,6 +4,7 @@ public class Plane implements Object {
 	private final Point center;
 	private final Normal normal;
 	private Vector color;
+	private Material material;
 
 	public Plane(Point center, Normal normal) {
 		this.center = center;
@@ -37,5 +38,11 @@ public class Plane implements Object {
 
 	public void setColor(Vector c) {
 		this.color = c;
+	}
+
+	public Material getMaterial() { return this.material;}
+	public void setMaterial(Material material){ this.material = material;}
+	public Double[] get_uv_bari(Point p){
+		return null; //not implemented
 	}
 }

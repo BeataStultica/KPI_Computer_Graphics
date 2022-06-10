@@ -65,9 +65,10 @@ public class Scene {
 						matrix[x][y] = Color.BLACK.getRGB();
 					} else {
 						double lighting = light.calcLighting(normalAtPoint, intersectionPoint, tree);
-						Vector c = obj.getColor().dot_el(light.getColor().dot_el(light.getIntens())).mult(lighting); // replace obj.getColor with texture function
+						Vector c = obj.getMaterial().bxdf_func(light.getDirection(intersectionPoint), ray.getDirection(),
+								obj, intersectionPoint).dot_el(light.getColor().dot_el(light.getIntens())).mult(lighting); // replace obj.getColor with texture function
 						//int shade = (int) Math.round(lighting * 255);
-						matrix[x][y] = new Color((int) c.x(), (int) c.y(), (int) c.z()).getRGB();
+						matrix[x][y] = new Color(roundColor(c.x()), roundColor(c.y()), roundColor(c.z())).getRGB();
 					}
 				} else {
 					matrix[x][y] = BACKGROUND_COLOR;
@@ -77,5 +78,12 @@ public class Scene {
 
 		output.display(matrix);
 		return matrix;
+	}
+	private int roundColor(double x){
+		if (x>255){
+			return 255;
+		}else{
+			return (int) x;
+		}
 	}
 }
