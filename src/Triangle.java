@@ -7,6 +7,7 @@ public class Triangle implements Object {
     private Normal n1;
     private Normal n2;
     private Normal n3;
+    private Vector color;
 
     public Triangle(Point v1, Point v2, Point v3, Normal n1, Normal n2, Normal n3) {
         this.v1 = v1;
@@ -103,5 +104,13 @@ public class Triangle implements Object {
         double maxZ = Math.max(v1.z(), Math.max(v2.z(), v3.z()));
 
         return new Vector(maxX, maxY, maxZ);
+    }
+
+    public Vector getColor(){
+        return color;
+    }
+
+    public void setColor(Vector c) {
+        this.color = c;
     }
 }

@@ -3,6 +3,7 @@ package src;
 public class Sphere implements Object {
 	private final Point center;
 	private final double radius;
+	private Vector color;
 
 	public Sphere(Point center, double radius) {
 		this.center = center;
@@ -34,5 +35,12 @@ public class Sphere implements Object {
 	@Override
 	public Normal getNormalAtPoint(Point p) {
 		return p.sub(center).toNormal();
+	}
+	public Vector getColor(){
+		return color;
+	}
+
+	public void setColor(Vector c) {
+		this.color = c;
 	}
 }

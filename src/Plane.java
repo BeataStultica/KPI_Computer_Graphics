@@ -3,6 +3,7 @@ package src;
 public class Plane implements Object {
 	private final Point center;
 	private final Normal normal;
+	private Vector color;
 
 	public Plane(Point center, Normal normal) {
 		this.center = center;
@@ -28,5 +29,13 @@ public class Plane implements Object {
 	@Override
 	public Normal getNormalAtPoint(Point p) {
 		return normal;
+	}
+
+	public Vector getColor(){
+		return color;
+	}
+
+	public void setColor(Vector c) {
+		this.color = c;
 	}
 }

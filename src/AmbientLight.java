@@ -35,7 +35,6 @@ public class AmbientLight implements Light{
         }
 
         if (Double.isNaN(dotProduct/5)) {
-            System.out.println(dotProduct);
             dotProduct=1;
         }
         if (dotProduct/5<0.3){

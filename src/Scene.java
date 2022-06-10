@@ -65,7 +65,7 @@ public class Scene {
 						matrix[x][y] = Color.BLACK.getRGB();
 					} else {
 						double lighting = light.calcLighting(normalAtPoint, intersectionPoint, tree);
-						Vector c = light.getColor().dot_el(light.getIntens()).mult(lighting);
+						Vector c = obj.getColor().dot_el(light.getColor().dot_el(light.getIntens())).mult(lighting); // replace obj.getColor with texture function
 						//int shade = (int) Math.round(lighting * 255);
 						matrix[x][y] = new Color((int) c.x(), (int) c.y(), (int) c.z()).getRGB();
 					}
