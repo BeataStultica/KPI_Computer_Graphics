@@ -64,7 +64,7 @@ public class Scene {
 					if (withShadows && lightObstructed(new Ray(light.getDirection(intersectionPoint), intersectionPoint.add(normalAtPoint.mult(2))), obj)) {
 						matrix[x][y] = Color.BLACK.getRGB();
 					} else {
-						double lighting = light.calcLighting(normalAtPoint, intersectionPoint);
+						double lighting = light.calcLighting(normalAtPoint, intersectionPoint, tree);
 						Vector c = light.getColor().dot_el(light.getIntens()).mult(lighting);
 						//int shade = (int) Math.round(lighting * 255);
 						matrix[x][y] = new Color((int) c.x(), (int) c.y(), (int) c.z()).getRGB();

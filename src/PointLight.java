@@ -17,7 +17,7 @@ public class PointLight implements Light{
     public Vector getIntens() {return intens; }
 
     @Override
-    public double calcLighting(Normal normalAtPoint, Point point) {
+    public double calcLighting(Normal normalAtPoint, Point point, BoundingTree tree) {
         double dotProduct = this.getDirection(point).dot(normalAtPoint);
 
         if (dotProduct < 0) {
