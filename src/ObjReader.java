@@ -69,6 +69,10 @@ public class ObjReader {
             }
 
         }
+        ArrayList<Double> tex_empty = new ArrayList<>();
+        tex_empty.add(2d);
+        tex_empty.add(2d);
+        tex_empty.add(2d);
         for (ArrayList<ArrayList<Integer>> f: index_list){
             ArrayList<Point> p = new ArrayList<>();
             ArrayList<Normal> n = new ArrayList<>();
@@ -79,6 +83,8 @@ public class ObjReader {
                 if (t.get(1) != null) {
                     ArrayList<Double> tex = texture_list.get(t.get(1)-1);
                     texst.add(tex);
+                }else{
+                    texst.add(tex_empty);
                 }
                 ArrayList<Double> normal_p2 = normal_list.get(t.get(2)-1);
                 p.add(new Point(vertex_p1.get(0), vertex_p1.get(1),vertex_p1.get(2)));

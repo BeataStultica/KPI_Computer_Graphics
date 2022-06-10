@@ -121,13 +121,17 @@ public class Triangle implements Object {
     public void setColor(Vector c) {
         this.color = c;
     }
-    public double[] get_uv_bari(Point p){
-        double ownArea = triangleArea(v1, v2, v3);
-        double vArea = triangleArea(v2, v1, p);
-        double uArea = triangleArea(v1, v3, p);
-        double u = uArea / ownArea;
-        double v = vArea / ownArea;
-        Vector res = t2.mult(u).add(t3.mult(v).add(t1.mult(1-v-u)));
-        return new double[]{res.x(), res.y()};
+    public Double[] get_uv_bari(Point p){
+        if (t1.x() <=1) {
+            double ownArea = triangleArea(v1, v2, v3);
+            double vArea = triangleArea(v2, v1, p);
+            double uArea = triangleArea(v1, v3, p);
+            double u = uArea / ownArea;
+            double v = vArea / ownArea;
+            Vector res = t2.mult(u).add(t3.mult(v).add(t1.mult(1 - v - u)));
+            return new Double[]{res.x(), res.y()};
+        }else{
+            return new Double[]{null, null};
+        }
     }
 }
