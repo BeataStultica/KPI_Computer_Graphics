@@ -19,4 +19,9 @@ public class Lambert implements Material{
             return new Vector(color.getRed(),color.getGreen(), color.getBlue());
         }
     }
+
+    @Override
+    public float ismirror() {
+        return 0;
+    }
 }
