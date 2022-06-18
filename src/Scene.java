@@ -39,6 +39,11 @@ public class Scene {
 
 	public int[][] render(Output output, boolean withShadows) {
 		Point origin = camera.getLocation();
+		//Vector test = new Vector(500, 250, 500);
+		//Vector test2 = roundColor(test);
+		//System.out.println(test2.x());
+		//System.out.println(test2.y());
+		//System.out.println(test2.z());
 		int[][] matrix = new int[screen.getWidth()][screen.getHeight()];
 
 		for (int x = 0; x < screen.getWidth(); x++) {
@@ -46,7 +51,7 @@ public class Scene {
 				Point dest = screen.getPoint(x, y);
 				Vector direction = dest.sub(origin);
 				Ray ray = new Ray(direction.toNormal(), origin);
-				int color = calcucate_intersection(ray, withShadows, matrix,x,y,0);
+				int color = calcucate_intersection(ray, withShadows, matrix,x,y,0, null);
 				matrix[x][y] = color;
 				/*double tVal = Double.MAX_VALUE;
 				Object obj = null;
@@ -93,7 +98,7 @@ public class Scene {
 		return matrix;
 	}
 
-	private int calcucate_intersection(Ray ray, boolean withShadows, int[][] matrix, int x, int y, int deep){
+	private int calcucate_intersection(Ray ray, boolean withShadows, int[][] matrix, int x, int y, int deep, Object selfObj){
 		double tVal = Double.MAX_VALUE;
 		Object obj = null;
 
@@ -103,21 +108,20 @@ public class Scene {
 		for (Object object : triangles) {
 			Double ttval = object.intersectionWith(ray);
 
-			if (ttval != null && ttval < tVal) {
+			if (ttval != null && ttval < tVal && object!=selfObj) {
 				tVal = ttval;
 				obj = object;
 			}
 		}
-		if (deep==0) {
-			for (Object object : obj_list) {
-				Double ttval = object.intersectionWith(ray);
-
-				if (ttval != null && ttval < tVal) {
-					tVal = ttval;
-					obj = object;
-				}
+		//if (deep==0) {
+		for (Object object : obj_list) {
+			Double ttval = object.intersectionWith(ray);
+			if (ttval != null && ttval < tVal && object!=selfObj) {
+				tVal = ttval;
+				obj = object;
 			}
 		}
+		//}
 
 		if (obj != null) {
 			Point intersectionPoint = ray.getPointAt(tVal);
@@ -133,21 +137,23 @@ public class Scene {
 					//new Ray((normalAtPoint.mult(ray.getDirection().dot(normalAtPoint)*2))
 							//.sub(ray.getDirection()).toNormal(), intersectionPoint);//.add(normalAtPoint.mult(2)));
 
-					int color = calcucate_intersection(reflect_ray, withShadows, matrix, x,y,deep+1);
+					int color = calcucate_intersection(reflect_ray, withShadows, matrix, x,y,deep+1, obj);
 
-					System.out.println(tVal);
+					//System.out.println(tVal);
 					return color;
 
 				}
 				if (obj.getMaterial().ismirror() >0){
-					System.out.println(deep);
-					return Color.WHITE.getRGB();
+					//System.out.println(deep);
+					return Color.GREEN.getRGB();
 				}
+
 				Vector c = obj.getMaterial().bxdf_func(light.getDirection(intersectionPoint), ray.getDirection(),
-						obj, intersectionPoint).dot_el(light.getColor().dot_el(light.getIntens())).mult(lighting); // replace obj.getColor with texture function
-				//int shade = (int) Math.round(lighting * 255);
-				//matrix[x][y] = new Color(roundColor(c.x()), roundColor(c.y()), roundColor(c.z())).getRGB();
-				return new Color(roundColor(c.x()), roundColor(c.y()), roundColor(c.z())).getRGB();
+						obj, intersectionPoint).dot_el(light.getColor().dot_el(light.getIntens()));//.mult(lighting);
+
+				Vector c_rl = roundColor(c).mult(lighting);
+				Vector c_r = roundColor(c_rl);
+				return new Color((int) c_r.x(), (int) c_r.y(), (int) c_r.z()).getRGB();
 			}
 		} else {
 			//matrix[x][y] = BACKGROUND_COLOR;
@@ -157,11 +163,19 @@ public class Scene {
 			return BACKGROUND_COLOR;
 		}
 	}
-	private int roundColor(double x){
-		if (x>255){
-			return 255;
+	private Vector roundColor(Vector v){
+		if (v.x()<=0 & v.y()<=0 & v.z()<=0){
+			return new Vector(0,0,0);
+		}
+		if (v.x()<=255 & v.y()<=255 & v.z()<=255){
+			return v;
+		}
+		if (v.x() >= v.y() & v.x() >= v.z()){
+			return new Vector(255, 255*(v.y()/v.x()), 255*(v.z()/v.x()) );
+		}else if (v.y() >= v.x() & v.y() >= v.z()){
+			return new Vector(255*(v.x()/v.y()), 255, 255*(v.z()/v.y()) );
 		}else{
-			return (int) x;
+			return new Vector(255*(v.x()/v.z()), 255*(v.y()/v.z()), 255 );
 		}
 	}
 }

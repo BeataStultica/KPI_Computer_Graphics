@@ -20,9 +20,9 @@ class Main {
 
 		Screen screen = new Screen(300, 300, 1, new Point(450, 0, 0));
 		Camera camera = new Camera(new Point(950, 0, 0));
-		DirectedLight light = new DirectedLight(Normal.create(0, 1, -1), new Vector(255,125,0), new float[]{4f,4f,1f});
+		//DirectedLight light = new DirectedLight(Normal.create(-1, -1, 0), new Vector(255,225,255), new float[]{1f,1f,1f});
 		//PointLight light = new PointLight(new Point(150,100,-200), new Vector(255,0,0), new float[]{0.5f,1f,1f});
-		//AmbientLight light = new AmbientLight(new Vector(255,0,0), new float[]{0.5f,1f,1f});
+		AmbientLight light = new AmbientLight(new Vector(255,0,0), new float[]{5.5f,6f,6f});
 		Output out = new FileOutput(output_file);
 		Output out2 = new FileOutput("without_tree.ppm");
 		Output out3 = new FileOutput("mask.ppm");
@@ -34,9 +34,10 @@ class Main {
 
 		System.out.println(poligons.size());
 		Matrix4x4 m1 = new Matrix4x4();
-		m1.move(0, -100, -100);
+		m1.move(0, 0, 0);
 		m1.rotateZ(55);
 		m1.scale(400, 400, 400);
+		Texture textur = new Texture("wood.jpg");
 		Material lamb = new Lambert(new Vector(0.5, 1,1), null); // color from 0 to 1
 		for (Triangle tr : poligons) {
 			tr.transform(m1);
@@ -47,15 +48,15 @@ class Main {
 		}
 
 
-		Sphere sphere = new Sphere(new Point(0,200,0), 100);
+		//Sphere sphere = new Sphere(new Point(0,200,0), 100);
 		Material mirror = new Mirror();
-		sphere.setMaterial(mirror);
+		//sphere.setMaterial(mirror);
 		//all_poligons.add(sphere);
 
 		double startTime = System.currentTimeMillis();
-		BiTree tree = BiTree.create(all_poligons, 10, DivisionType.MIDDLE);
+		BiTree tree = BiTree.create(all_poligons, 20, DivisionType.SAH);
 		Scene scene = new Scene(camera, screen, light, tree);
-		scene.add_obj(sphere);
+		//scene.add_obj(sphere);
 		int[][] withtree = scene.render(out, true);
 		System.out.println("Time with tree = " +(System.currentTimeMillis()-startTime));
 		/*Vector r1 = new Vector(1,1,1);

@@ -11,36 +11,25 @@ public class AmbientLight implements Light{
     }
     @Override
     public double calcLighting(Normal normalAtPoint, Point point, BoundingTree tree) {
-        Random rd = new Random();
-        double dotProduct = 1;
-        for (int i=0; i<4; i++){
-            Ray r = new Ray(Normal.create(normalAtPoint.x()*rd.nextInt(10), normalAtPoint.y()*rd.nextInt(10), normalAtPoint.z()*rd.nextInt(10)), point.add(normalAtPoint.mult(2)));
-            boolean isLight = false;
+        double dotProduct = 0;
+        int ray_count = 20;
+        for (int i=0; i<ray_count; i++){
+            Ray r = new Ray(directGen(normalAtPoint).toNormal(), point.add(normalAtPoint.mult(2)));
+            int isLight = 1;
             for (Object object : tree.getTriangles(r)) {
                 Double intersection = object.intersectionWith(r);
 
                 if (intersection != null) {
-                    isLight =true;
+                    isLight =0;
                     break;
                 }
             }
-            if (!isLight){
-                double a = r.getDirection().toNormal().dot(normalAtPoint);
-                if (Double.isNaN(a)){
-                    a = 0;
-                }
-                dotProduct += a;
+            dotProduct += r.getDirection().toNormal().dot(normalAtPoint)*isLight;
 
-            }
+
         }
 
-        if (Double.isNaN(dotProduct/5)) {
-            dotProduct=1;
-        }
-        if (dotProduct/5<0.3){
-            dotProduct=4;
-        }
-        return dotProduct/5;
+        return dotProduct/ray_count;
 
     }
 
@@ -58,4 +47,23 @@ public class AmbientLight implements Light{
     public Vector getIntens() {
         return intens;
     }
+
+    private Vector directGen(Normal normalAtPoint){
+        Random random = new Random();
+        double dot = 0;
+        Vector dir = null;
+        while (dot <=0){
+            double u = random.nextDouble();
+            double v = random.nextDouble();
+            double theta = 2*Math.PI*u;
+            double phi = 1/Math.cos(2*v-1);
+            double x = Math.sqrt(1-u*u)*Math.cos(theta);
+            double y = Math.sqrt(1-u*u)*Math.sin(theta);
+            double z = Math.cos(phi);
+            dir = new Vector(x, y, z);
+            dot = dir.dot(normalAtPoint);
+        }
+        return dir;
+    }
+
 }
