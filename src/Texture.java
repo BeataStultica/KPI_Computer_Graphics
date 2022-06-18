@@ -8,13 +8,13 @@ import javax.imageio.ImageIO;
 
 public class Texture {
     private int[][] texture;
-    public Texture(String filepath) throws IOException {
-        this.setTexture(filepath);
+    public Texture(String filepath, int filtrationCount) throws IOException {
+        this.setTexture(filepath, filtrationCount);
     }
     public int[][] getTexture(){
         return texture;
     }
-    public void setTexture(String filepath) throws IOException {
+    public void setTexture(String filepath, int filtrationCount) throws IOException {
         File file= new File(filepath);
         BufferedImage img = ImageIO.read(file);
         this.texture = new int[img.getHeight()][img.getWidth()];
@@ -22,7 +22,11 @@ public class Texture {
             for (int x = 0; x < img.getWidth(); x++) {
                 int pixel = img.getRGB(x,y);
                 Color color = new Color(pixel);
-                this.texture[y][x] = color.getRGB();
+                if (color.getRed()+color.getBlue()+color.getGreen()>filtrationCount) {
+                    this.texture[y][x] = color.getRGB();
+                }else{
+                    this.texture[y][x] = 0;
+                }
             }
         }
     }

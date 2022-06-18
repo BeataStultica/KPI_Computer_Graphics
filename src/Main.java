@@ -20,9 +20,9 @@ class Main {
 
 		Screen screen = new Screen(300, 300, 1, new Point(450, 0, 0));
 		Camera camera = new Camera(new Point(950, 0, 0));
-		//DirectedLight light = new DirectedLight(Normal.create(-1, -1, 0), new Vector(255,225,255), new float[]{1f,1f,1f});
+		DirectedLight light = new DirectedLight(Normal.create(-1, -1, 0), new Vector(255,225,255), new float[]{1f,1f,1f});
 		//PointLight light = new PointLight(new Point(150,100,-200), new Vector(255,0,0), new float[]{0.5f,1f,1f});
-		AmbientLight light = new AmbientLight(new Vector(255,0,0), new float[]{5.5f,6f,6f});
+		//AmbientLight light = new AmbientLight(new Vector(255,0,0), new float[]{5.5f,6f,6f});
 		Output out = new FileOutput(output_file);
 		Output out2 = new FileOutput("without_tree.ppm");
 		Output out3 = new FileOutput("mask.ppm");
@@ -36,9 +36,9 @@ class Main {
 		Matrix4x4 m1 = new Matrix4x4();
 		m1.move(0, 0, 0);
 		m1.rotateZ(55);
-		m1.scale(400, 400, 400);
-		Texture textur = new Texture("wood.jpg");
-		Material lamb = new Lambert(new Vector(0.5, 1,1), null); // color from 0 to 1
+		m1.scale(150, 150, 150);
+		Texture textur = new Texture("chess.jpg", 40); // if not artifact set second arg = 0
+		Material lamb = new Lambert(new Vector(0.5, 1,1), textur.getTexture()); // color from 0 to 1
 		for (Triangle tr : poligons) {
 			tr.transform(m1);
 			tr.setMaterial(lamb);
