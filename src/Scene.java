@@ -133,13 +133,8 @@ public class Scene {
 			} else {
 				double lighting = light.calcLighting(normalAtPoint, intersectionPoint, tree);
 				while (deep<3 && obj.getMaterial().ismirror() >0){
-					Ray reflect_ray = new Ray(ray.getDirection().sub(normalAtPoint.mult(ray.getDirection().dot(normalAtPoint)*2)).toNormal(), intersectionPoint);
-					//new Ray((normalAtPoint.mult(ray.getDirection().dot(normalAtPoint)*2))
-							//.sub(ray.getDirection()).toNormal(), intersectionPoint);//.add(normalAtPoint.mult(2)));
-
+					Ray reflect_ray = obj.getMaterial().reflected_ray(ray.getDirection(), normalAtPoint, intersectionPoint);//Ray reflect_ray = new Ray(ray.getDirection().sub(normalAtPoint.mult(ray.getDirection().dot(normalAtPoint)*2)).toNormal(), intersectionPoint);
 					int color = calcucate_intersection(reflect_ray, withShadows, matrix, x,y,deep+1, obj);
-
-					//System.out.println(tVal);
 					return color;
 
 				}

@@ -12,7 +12,7 @@ public class AmbientLight implements Light{
     @Override
     public double calcLighting(Normal normalAtPoint, Point point, BoundingTree tree) {
         double dotProduct = 0;
-        int ray_count = 20;
+        int ray_count = 5;
         for (int i=0; i<ray_count; i++){
             Ray r = new Ray(directGen(normalAtPoint).toNormal(), point.add(normalAtPoint.mult(2)));
             int isLight = 1;

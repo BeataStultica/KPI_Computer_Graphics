@@ -42,4 +42,19 @@ public class FileOutput implements Output {
 			e.printStackTrace();
 		}
 	}
+	public void get_mask( int[][] withtree, int[][] withoutTree){
+		int[][] mask = new int[withtree.length][withtree[0].length];
+		for (int i=0; i<withtree.length; i++){
+			for (int j=0; j<withtree[0].length; j++){
+				int dif = withoutTree[i][j] - withtree[i][j];
+				if (dif != 0){
+					mask[i][j] = 1;
+				}
+				else {
+					mask[i][j] =0;
+				}
+			}
+		}
+		display(mask);
+	}
 }

@@ -12,4 +12,9 @@ public class Mirror implements Material{
     public float ismirror(){
         return 1f;
     }
+    @Override
+    public Ray reflected_ray(Vector dir, Normal normalAtPoint, Point intersectionPoint) {
+        Ray reflect_ray = new Ray(dir.sub(normalAtPoint.mult(dir.dot(normalAtPoint) * 2)).toNormal(), intersectionPoint);
+        return reflect_ray;
+    }
 }
