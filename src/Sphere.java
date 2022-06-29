@@ -3,6 +3,8 @@ package src;
 public class Sphere implements Object {
 	private final Point center;
 	private final double radius;
+	private Vector color;
+	private Material material;
 
 	public Sphere(Point center, double radius) {
 		this.center = center;
@@ -34,5 +36,17 @@ public class Sphere implements Object {
 	@Override
 	public Normal getNormalAtPoint(Point p) {
 		return p.sub(center).toNormal();
+	}
+	public Vector getColor(){
+		return color;
+	}
+
+	public void setColor(Vector c) {
+		this.color = c;
+	}
+	public Material getMaterial() { return this.material;}
+	public void setMaterial(Material material){ this.material = material;}
+	public Double[] get_uv_bari(Point p){
+		return null; //not implemented
 	}
 }

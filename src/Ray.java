@@ -1,11 +1,11 @@
 package src;
 
 public class Ray {
-	private final Vector direction;
+	private final Normal direction;
 	private final Point origin;
 
-	public Ray(Vector direction, Point origin) {
-		this.direction = direction.normalize();
+	public Ray(Normal direction, Point origin) {
+		this.direction = direction;
 		this.origin = origin;
 	}
 

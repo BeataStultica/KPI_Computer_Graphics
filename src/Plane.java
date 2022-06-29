@@ -3,6 +3,8 @@ package src;
 public class Plane implements Object {
 	private final Point center;
 	private final Normal normal;
+	private Vector color;
+	private Material material;
 
 	public Plane(Point center, Normal normal) {
 		this.center = center;
@@ -28,5 +30,19 @@ public class Plane implements Object {
 	@Override
 	public Normal getNormalAtPoint(Point p) {
 		return normal;
+	}
+
+	public Vector getColor(){
+		return color;
+	}
+
+	public void setColor(Vector c) {
+		this.color = c;
+	}
+
+	public Material getMaterial() { return this.material;}
+	public void setMaterial(Material material){ this.material = material;}
+	public Double[] get_uv_bari(Point p){
+		return null; //not implemented
 	}
 }

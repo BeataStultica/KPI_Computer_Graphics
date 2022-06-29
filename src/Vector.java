@@ -34,7 +34,9 @@ public class Vector {
 	public double dot(Vector v) {
 		return x * v.x + y * v.y + z * v.z;
 	}
-
+	public Vector dot_el(Vector v) {
+		return new Vector(x * v.x, y * v.y, z * v.z);
+	}
 	public Vector mult(double k) {
 		return new Vector(x * k, y * k, z * k);
 	}
@@ -55,4 +57,8 @@ public class Vector {
 	public Normal toNormal() {
 		return Normal.create(x, y, z);
 	}
+
+	public double len() { return Math.sqrt(x * x + y * y + z * z); }
+
+	public Vector reverse() { return new Vector(-x, -y, -z); }
 }

@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class RenderTest {
-
+    /*
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
 
     @Before
@@ -24,7 +24,8 @@ public class RenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(sphere);
         scene.addObject(triangle);
         scene.render();
@@ -57,7 +58,8 @@ public class RenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(sphere);
         scene.addObject(triangle);
         scene.render();
@@ -90,7 +92,8 @@ public class RenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(sphere);
         scene.addObject(triangle);
         scene.render();
@@ -123,7 +126,8 @@ public class RenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(sphere);
         scene.addObject(sphere2);
         scene.render();
@@ -156,7 +160,8 @@ public class RenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(sphere);
         scene.addObject(plane);
         scene.render();
@@ -189,7 +194,8 @@ public class RenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(plane2);
         scene.addObject(plane);
         scene.render();
@@ -221,7 +227,8 @@ public class RenderTest {
         Screen screen = new Screen(20, 20, new Point(10, 0, 0));
         Camera camera = new Camera(new Point(20, 0,0));
         DirectedLight light = new DirectedLight(Normal.create(0, 1, 1));
-        Scene scene = new Scene(camera, screen, light);
+        Output out = new ConsoleOutput(screen.getWidth(),screen.getHeight());
+        Scene scene = new Scene(camera, screen, light, out);
         scene.addObject(triangle);
         scene.addObject(triangle2);
         scene.render();
@@ -250,4 +257,6 @@ public class RenderTest {
     public void cleanUpStreams() {
         System.setOut(null);
     }
+    */
+
 }
